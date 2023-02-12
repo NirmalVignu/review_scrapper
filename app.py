@@ -3,6 +3,7 @@ from flask_cors import CORS,cross_origin
 import requests
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
+import pandas as pd
 
 import logging
 logging.basicConfig(filename='scrapper.log',level=logging.INFO)
@@ -72,8 +73,12 @@ def index():
 
                 mydict = {"Product": searchString, "Name": name, "Rating": rating, "CommentHead": commentHead,
                           "Comment": custComment}
-                #fw.write(str(searchString + "," + name + "," + rating + "," + commentHead + "," + custComment.replace(",", "|") + "\n"))
+                
                 reviews.append(mydict)
+                #print(reviews)
+            df=pd.DataFrame(reviews)
+            print(df)
+            df.to_csv(searchString+'.csv',index=False)
             logging.info("log my final result {}".format(reviews))
             return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])
         except Exception as e:
