@@ -8,7 +8,8 @@ import pandas as pd
 import logging
 logging.basicConfig(filename='scrapper.log',level=logging.INFO)
 
-app=Flask(__name__)
+application = Flask(__name__) # initializing a flask app
+app=application
 
 @app.route('/',methods=['GET'])
 def homepage():
